@@ -72,7 +72,8 @@ export async function createPerk(req, res, next) {
 export async function updatePerk(req, res, next) {
   try {
     // Validate only the fields being updated (partial validation)
-    const updateSchema = perkSchema.fork(Object.keys(req.body), (schema) => schema.optional());
+    //const updateSchema = perkSchema.fork(Object.keys(req.body), (schema) => schema.optional());
+    const updateSchema = perkSchema.fork(Object.keys(perkSchema.describe().keys), (schema) => schema.optional());
     const { value, error } = updateSchema.validate(req.body);
     if (error) return res.status(400).json({ message: error.message });
 
